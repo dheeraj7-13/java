@@ -1,0 +1,80 @@
+class Account
+{
+         //Data members - instance variables
+         int acNo;
+         String acName;
+         double acBal;
+
+         // constructor - three arguments
+         Account(int acNo, String acName,double acBal)
+         {
+           	// this.instance=local variable
+           	this.acNo=acNo;
+           	this.acName=acName;
+           	this.acBal=acBal;
+
+						
+         }
+
+	//define getters and setters
+	int getAcNo()
+	{
+		return this.acNo;
+	}
+	void setAcNO(int acNo)
+	{
+		this.acNo=acNo;
+	}
+
+	String getAcName()
+	{
+		return this.acName;
+	}
+	void setAcName(String acName)
+	{
+		this.acName=acName;
+	}
+
+	double getAcBal()
+	{
+		return this.acBal;
+	}
+	void setAcBal(double acBal)
+	{
+		this.acBal=acBal;
+	}
+	
+
+	
+}
+
+class AccountTest
+{
+
+		
+	public static void main(String[] args)
+	{
+	 	Account a1=new Account(101,"ABC",2000);
+		Account a2=new Account(102,"PQR",3000); 
+		
+		
+		print(a1);
+		print(a2);
+				
+
+	
+	}
+
+	static void print(Account temp)
+	{
+		System.out.println("Account Information");
+		System.out.println("Ac No:"+temp.getAcNo());
+		System.out.println("Ac Name:"+temp.getAcName());
+		System.out.println("Ac Balance:"+temp.getAcBal());
+	}
+
+	
+
+
+
+}
