@@ -1,52 +1,100 @@
-class MyStack {
-    int data[];
-    int tos = -1;
-    int size;
-
+class ArrayUtilities {
+    int[] data;
     // Constructor
-    MyStack(int size) {
-        this.size = size;
+    ArrayUtilities(int size) {
+        // Instantiate the array 
         data = new int[size];
     }
-
-    void push(int ele) {
-        if (tos < size - 1) { // Adjusted index check
-            data[++tos] = ele;
-            System.out.println("Pushed: " + ele);
-        } else {
-            System.out.println("Stack Overflow at tos: " + tos);
-        }
+    // Set data
+    void setData(int[] data1) {
+        // Copy the contents of data1 into data
+        this.data = new int[data1.length];
+        System.arraycopy(data1, 0, this.data, 0, data1.length);
     }
-
-    int pop() {
-        if (tos >= 0) {
-            return data[tos--];
-        } else {
-            System.out.println("Stack Underflow");
-            return -1;
+    // Function to find the maximum element from the array 
+    int getMax() {
+        // Check if the array is empty
+        if (data.length == 0) {
+            throw new IllegalArgumentException("Array is empty");
         }
-    }
-
-    int peek() {
-        if (tos >= 0) {
-            return data[tos];
-        } else {
-            System.out.println("Stack is empty");
-            return -1;
+        int max = data[0];
+        for (int i = 1; i < data.length; i++) {
+            if (max < data[i]) {   
+1 | 
+                max = data[i];
+            }
         }
+        return max; // Return the maximum value found
     }
+    // Function to find the maximum element from the array 
+    int getMin() {
+        // Check if the array is empty
+        if (data.length == 0) {
+            throw new IllegalArgumentException("Array is empty");
+        }
+        int min = data[0];
+        for (int i = 1; i < data.length; i++) {
+            if (min > data[i]) {   
+                min = data[i];
+            }
+        }
+        return min; // Return the maximum value found
+    }
+    double findMean() 
+   {
+            //declare variables
+            int sum=0;
+            double avg = 0.0;
+            //perform addition
+            for ( int i : data)  //use temp variable to traverse through array
+            {
+                sum= sum+i;
+            }
+            avg=sum/data.length;
+            return avg;
+ 2 | 
+        
+   }
+   double findSD() 
+   {
+            //declare variables
+            
+            double sd = 0;
+            double mean = findMean();
+            //perform addition
+            for ( int d : data)  //use temp variable to traverse through array
+            {
+                sd = sd + Math.pow(d-mean,2);   // first part   E(x=x)2
+            }
+            sd/=data.length;
+            return Math.sqrt(sd);
+        
+   }
+ 
+//     // Function to find the maximum element from the array 
+// int printArray() 
+// {
+ //         for (int i  data.length ) {
+ //         System.out.println(i);
+ //         }
+ // }
+ 
 }
-
-class MyStackie {
+ 
+class ArrayImp1 {
     public static void main(String[] args) {
-        MyStack m1 = new MyStack(4); // Stack of size 4
-
-        // Adding 4 elements
-        m1.push(10);
-        m1.push(20);
-        m1.push(30);
-        m1.push(40);
-        // Attempt to add a fifth element to trigger overflow
-        m1.push(50); // Should show overflow
+        
+        // Example data
+        int[] data = {3, 5, 1, 8, 2};
+        ArrayUtilities a1 = new ArrayUtilities(5);
+ 3 | 
+        a1.setData(data);
+        // Find and print the maximum element
+        int maxElement = a1.getMax();
+        int minElement = a1.getMin();
+        System.out.println("Maximum element: " + maxElement); // Output: Maximum element: 8
+        System.out.println("Minimum element: " + minElement); // Output: Maximum element: 1
+        System.out.println("Mean of the array is: " + a1.findMean());
+        System.out.println("The SD of array is: " + a1.findSD());  
     }
-}
+ }
