@@ -20,7 +20,7 @@ class ArrayUtilities {
         int max = data[0];
         for (int i = 1; i < data.length; i++) {
             if (max < data[i]) {   
-1 | 
+ 
                 max = data[i];
             }
         }
@@ -52,7 +52,7 @@ class ArrayUtilities {
             }
             avg=sum/data.length;
             return avg;
- 2 | 
+ 
         
    }
    double findSD() 
@@ -87,7 +87,7 @@ class ArrayImp1 {
         // Example data
         int[] data = {3, 5, 1, 8, 2};
         ArrayUtilities a1 = new ArrayUtilities(5);
- 3 | 
+
         a1.setData(data);
         // Find and print the maximum element
         int maxElement = a1.getMax();
