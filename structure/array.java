@@ -1,18 +1,27 @@
-class ArrayUtilities {
+class ArrayUtilities 
+{
     int[] data;
+    
     // Constructor
-    ArrayUtilities(int size) {
+    ArrayUtilities(int size ) 
+    {
         // Instantiate the array 
         data = new int[size];
     }
     // Set data
-    void setData(int[] data1) {
+    void setData(int[] data1)
+    {
         // Copy the contents of data1 into data
         this.data = new int[data1.length];
         System.arraycopy(data1, 0, this.data, 0, data1.length);
+        // System.arraycopy(data1, 1, this.data, 0, 3); // Copies 3 elements starting from index 1 in data1
+        
     }
+    
+    
     // Function to find the maximum element from the array 
-    int getMax() {
+    int getMax() 
+    {
         // Check if the array is empty
         if (data.length == 0) {
             throw new IllegalArgumentException("Array is empty");
@@ -71,18 +80,17 @@ class ArrayUtilities {
         
    }
  
-//     // Function to find the maximum element from the array 
-// int printArray() 
-// {
- //         for (int i  data.length ) {
- //         System.out.println(i);
- //         }
- // }
+   public void printArray() {
+    for (int element : data) {
+      System.out.print(  element  );
+    }
+  }
  
 }
  
 class ArrayImp1 {
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         
         // Example data
         int[] data = {3, 5, 1, 8, 2};
@@ -96,5 +104,6 @@ class ArrayImp1 {
         System.out.println("Minimum element: " + minElement); // Output: Maximum element: 1
         System.out.println("Mean of the array is: " + a1.findMean());
         System.out.println("The SD of array is: " + a1.findSD());  
+        a1.printArray();
     }
  }
