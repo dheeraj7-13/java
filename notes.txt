@@ -1,0 +1,7 @@
+load jdbc driver , link between them (java,eclipse)
+manufacturer     protocol sub.protocol   classname  or drivername
+ 
+
+define: program to setup the connection between database and the java program
+step1:  load driver 
+class.forName("org.postgresql.Driver")
