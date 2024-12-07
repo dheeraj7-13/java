@@ -1,0 +1,113 @@
+AppCtx.xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+    <bean id="beanA" class="edu.met.p1.ClassA" lazy-init="true">
+    	<constructor-arg name="b" ref="beanB"></constructor-arg>
+    </bean>
+    <bean id="beanB" class="edu.met.p1.ClassB" lazy-init="true">
+    	<constructor-arg name="a" ref="beanA"></constructor-arg>
+    </bean>
+     <bean id="beanC" class="edu.met.p1.ClassC">
+    	<property name="d" ref="beanD"></property>
+    </bean>
+     <bean id="beanD" class="edu.met.p1.ClassD">
+    	<property name="c" ref="beanC"></property>
+    </bean>a
+</beans>
+
+
+
+
+
+CircularTest.java
+package edu.met.p1;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class CircularTest {
+	static ApplicationContext ctx;	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		ctx=new ClassPathXmlApplicationContext("AppCtx.xml");
+		//ClassA a1=(ClassA) ctx.getBean("beanA");
+		//ClassB b1=(ClassB) ctx.getBean("beanB");
+		ClassC c1=(ClassC) ctx.getBean("beanC");
+		ClassD d1=(ClassD) ctx.getBean("beanD");
+	}
+
+}
+
+
+
+
+ClassA.java
+package edu.met.p1;
+
+public class ClassA {
+	ClassB b;
+	public ClassA(ClassB b)
+	{
+		this.b=b;
+	}
+}
+
+
+
+
+ClassB.java
+package edu.met.p1;
+
+public class ClassB {
+	ClassA a;
+	public ClassB(ClassA a)
+	{
+		this.a=a;
+	}
+}
+
+
+
+ClassC.java
+package edu.met.p1;
+
+public class ClassC {
+	ClassD d;
+	public ClassC()
+	{
+		System.out.println("Contructor C");
+	}
+	public void setD(ClassD d)
+	{
+		System.out.println("Inside class C");
+		this.d=d;
+	}
+}
+
+
+
+ClassD.java
+package edu.met.p1;
+
+public class ClassD {
+	ClassC c;
+	public ClassD() {
+		// TODO Auto-generated constructor stub
+		System.out.println("Contructor D");
+	}
+	public void setC(ClassC c)
+	{
+		System.out.println("Inside class D");
+		this.c=c;
+	}
+}
+
+
+
+
