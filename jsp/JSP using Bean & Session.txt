@@ -1,0 +1,159 @@
+///////// Create a LoginApplication with Bean ///////// 
+
+### UserBean.java
+package edu.met.p1;
+
+public class UserBean {
+    private String uname;
+    private String password;
+
+    public String getUname() {
+        return uname;
+    }
+
+    public void setUname(String uname) {
+        this.uname = uname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public UserBean() {
+        // TODO Auto-generated constructor stub
+    }
+
+    // validate to check uname and password
+    public boolean validate() {
+        if (this.uname.equals("Shanti") && this.password.equals("1234")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+### Login.jsp
+
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Login Application</title>
+</head>
+<body>
+<h2>Login Page</h2>
+<hr>
+<table border="1">
+<form action="CheckLogin.jsp">
+<tr><td>Enter Username : </td>
+<td><input type="text" name="uname"></td>
+</tr>
+<tr><td>Enter Password : </td>
+<td><input type="password" name="password"></td>
+</tr>
+<tr>
+<td><input type="reset" name="btnReset"
+value="Reset"></td>
+<td><input type="submit" name="btnSub"
+value="Login"></td>
+</tr>
+</form>
+</table>
+</body>
+</html>
+
+### CheckLogin.jsp
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
+    <html>
+
+    <head>
+    </head>
+
+    <body>
+        <jsp:useBean id="userBean" class="edu.met.p1.UserBean" />
+        <jsp:setProperty property="*" name="userBean" />
+        <% if(userBean.validate()) { %>
+            <jsp:forward page="Welcome.jsp" />
+            <% } else { %>
+                <jsp:forward page="InvalidUser.jsp" />
+                <% } %>
+    </body>
+
+    </html>
+
+### Welcome.jsp
+<html>
+<head>
+<title>Welcome Page</title>
+</head>
+<body>
+<h1><i>Welcome <%= request.getParameter("uname") %> </i></h1>
+</body>
+</html>
+
+### InvalidUser.jsp
+<html>
+<head>
+<title>Error Page</title>
+</head>
+<body>
+<h1><i>Incorrect Username or Password!!</i></h1>
+<a href="Login.jsp">Try Again!</a>
+</body>
+</html>
+
+### OUTPUT:
+
+********** Create New Project  ********** 
+///////// Create a Counter Application Using Session ///////// 
+
+### CounterUsingSession.jsp
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Insert title here</title>
+</head>
+<body>
+<%! int cnt=0; %>
+Session Id: <%= session.getId() %>
+<%
+//Display
+if(session.getAttribute("cntr")==null)
+{
+//1)Create Session Attribute
+session.setAttribute("cntr", "1");
+//2)Display Message
+out.println("<h1>This is Your First Visit!</h1>");
+}
+else
+{
+//3)Fetch the old value of counter
+cnt=Integer.parseInt(session.getAttribute("cntr").toString());
+//4)Increment and Display
+cnt=cnt+1;
+out.println("<h1>This is Your Visit Number: </h1>"+(cnt));
+//5)Update the counter
+session.setAttribute("cntr", ""+cnt);
+}
+%>
+</body>
+</html>
+
+### OUTPUT
+
+
+
+

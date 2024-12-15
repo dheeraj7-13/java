@@ -1,0 +1,135 @@
+///////// JSP Login Application ////////////
+
+### Login.jsp
+
+<%@ page language="java" %>
+<html>
+<head>
+<title>Login Application</title>
+</head>
+<body>
+<h2>Login Page</h2>
+<hr>
+<table border="1">
+<form action="CheckLogin.jsp">
+<tr><td>Enter Username : </td>
+<td><input type="text" name="txtUname"></td>
+</tr>
+<tr><td>Enter Password : </td>
+<td><input type="password" name="txtPwd"></td>
+</tr>
+<tr>
+<td><input style="display: block; margin: 0 auto;"
+type="reset" name="btnReset" value="Reset"></td>
+<td><input style="display: block; margin: 0 auto;"
+type="submit" name="btnSub" value="Submit"></td>
+</tr>
+</form>
+</table>
+</body>
+</html>
+
+### CheckLogin.jsp
+<%@ page language="java" %>
+<html>
+<body>
+<%
+//fetch username & password
+String un = request.getParameter("txtUname");
+String pwd = request.getParameter("txtPwd");
+//check for un and pwd
+if(un.equals("Priya") && pwd.equals("12345"))
+{
+%>
+<jsp:forward page="Welcome.jsp"></jsp:forward>
+<%
+}
+else
+{
+%>
+<jsp:forward page="InvalidUser.jsp"></jsp:forward>
+<%
+}
+%>
+</body>
+</html>
+
+### Welcome.jsp
+
+<html>
+<head>
+</head>
+<body>
+<h1>Welcome <%= request.getParameter("txtUname") %></h1> </body>
+</html>
+
+### InvalidUser.jsp
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" /> </head>
+<body>
+<h1>Incorrect Username or Password!!</h1>
+<a href="Login.jsp">Try Again</a>
+</body>
+</html>
+
+### OUTPUT
+
+///////// CODE: With Database Connectivity ///////// 
+
+### CheckLoginDB.jsp
+
+<%@ page language="java" import="java.sql.*" %>
+<html>
+<body>
+<%
+// Step 1: Load the Driver
+try {
+Class.forName("org.postgresql.Driver");
+} catch (Exception ex) {
+out.println(ex.getMessage());
+}
+try {
+// Step 2: Create a Connection
+Connection conn =
+DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres",
+"postgres", "password");
+// Fetch username & password
+String un = request.getParameter("txtUname");
+String pwd = request.getParameter("txtPwd");
+// Step 3: Create statement object
+Statement stmt = conn.createStatement();
+String sql = "Select * from users where uid='" + un+"'";
+// Step 4: Execute the Query
+ResultSet rs = stmt.executeQuery(sql);
+if (rs.next()) {
+// Check for un and pwd
+if (un.equals(rs.getString(1)) &&
+pwd.equals(rs.getString(2))) {
+%>
+<jsp:forward
+page="Welcome.jsp"></jsp:forward>
+<%
+} else {
+%>
+<jsp:forward
+page="InvalidUser.jsp"></jsp:forward>
+<%
+}
+} else {
+%>
+<jsp:forward
+page="InvalidUser.jsp"></jsp:forward>
+<%
+}
+} catch (Exception ex) {
+out.println(ex.getMessage());
+}
+%>
+</body>
+</html>
+
+### Login.jsp
+Change : <form action="CheckLoginDB.jsp">
+
+### OUTPUT:
